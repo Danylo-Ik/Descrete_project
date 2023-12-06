@@ -10,6 +10,8 @@ def read_graph(pathname: str) -> List(List(int))):
 def generate_graph(width: int, length: int) -> List(List(int))):
 	"""
  	generate a graph with given length and size and fill it with random heights
+  	width - number of int's in every list
+   	length - number of lists inside main list
   	"""
 	pass
 	
