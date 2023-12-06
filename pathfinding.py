@@ -17,8 +17,6 @@ def generate_graph(width: int, length: int) -> List[List[int]]:
 	import random
 	graph_list = [[random.randrange(1, 10) for k in range(width)] for i in range(length)]
 	return graph_list
-print(generate_graph(7, 5))
-	
 
 def find_shortest_path(graph, step, start, end):
 	"""
