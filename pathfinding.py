@@ -1,11 +1,10 @@
 def read_graph(pathname: str) -> List(List(int))):
 	"""
 	read graph from csv file and save it is a list of lists
-	[[1,2,3,4,5],
-	[6,7,8,9,10],
-	[11,12,13,14,15]]
+	[[1,2,3,4,5], [6,7,8,9,10],[11,12,13,14,15]]
 	"""
-	pass
+	with open(pathname, 'r', encoding = 'utf-8') as file:
+		return [[int(ind.strip()) for ind in line.split(',')] for line in file.readlines()]
 
 def generate_graph(width: int, length: int) -> List(List(int))):
 	"""
