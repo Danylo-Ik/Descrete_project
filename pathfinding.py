@@ -17,7 +17,7 @@ def generate_graph(width: int, length: int) -> List[List[int]]:
 	if __name__ == "__main__":
 		import random
 
-	graph_list = [[random.randrange(1, 100) for k in range(width)] for i in range(length)]
+	graph_list = [[random.randrange(1, 10000) for k in range(width)] for i in range(length)]
 	return graph_list
 
 def find_shortest_path(graph: list, step: int, start: tuple, end: tuple) -> List[tuple]:
@@ -37,7 +37,7 @@ def find_shortest_path(graph: list, step: int, start: tuple, end: tuple) -> List
 		find the cost of moving from current point to next point
 		"""
 		return (step ** 2 + (graph[current[0]][current[1]] - graph[next_coords[0]][next_coords[1]]) ** 2) ** 0.5
-	
+
 	length, width = len(graph), len(graph[0])
 	visited = [[False for k in range(width)] for i in range(length)]
 	start_coords = (start[0], start[1], 0, heuristic(start, end, step), [(start[0], start[1])])
@@ -70,7 +70,7 @@ def main():
 	"""
 	main function
 	"""
-	graph = generate_graph(1000, 1000)
-	print(find_shortest_path(graph, 1, (0, 0), (999, 999)))
+	graph = read_graph('graph.csv')
+	print(find_shortest_path(graph, 1, (0, 0), (4, 4)))
 
 main()
