@@ -70,7 +70,8 @@ def main():
 	"""
 	main function
 	"""
-	graph = read_graph('graph.csv')
-	print(find_shortest_path(graph, 1, (0, 0), (4, 4)))
+	graph = generate_graph(5000, 5000)
+	print(find_shortest_path(graph, 1, (0, 0), (4999, 4999)))
 
-main()
+if __name__ == "__main__":
+	main()
