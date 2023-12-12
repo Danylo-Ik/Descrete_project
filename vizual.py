@@ -13,29 +13,34 @@ from matplotlib.animation import FuncAnimation
 # 1,4,6,4,3,2,0
 # 0,1,2,3,4,5,6
 
-graf=[]
-with open('graf.csv') as file:
-    for line in file:
-        line = line.strip().split(',')
-        line = [int(el) for el in line]
-        graf.append(line)
+def transform_tuples_to_lists(tuples):
+    lists = [list(t) for t in tuples]
+    return lists
 
-def vizualize(output:list):
+def read_graph(path: str):
+    graf=[]
+    with open(path, encoding='utf-8') as file:
+        for line in file:
+            line = line.strip().split(',')
+            line = [int(el) for el in line]
+            graf.append(line)
+    return graf
+
+def vizualize(path: str, output: list):
     """
     Приклад вводу
     >>> [[0,2],[1,3],[2,4],[3,3],[4,2],[5,1],[6,1]]
     """
-
+    graf = read_graph(path)
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
-
 
     len_x = len(graf[0]) #довжина графа
     len_y = len(graf) #висота графа
     # дані, щоб побудувати граф
     l = [int(graf[j][i]) for j in range(len_y) for i in range(len_x)] #ліст всіх значень висто справа наліво, зверху вниз
     f = [i+1 for i in range(len_y*len_x)] #ліст з номерацією, щоб створити дікшенарі з носерами
-    d = {k: v for k, v in zip(f, l)} #дікшенарі, де кожна висота прономерована, нумерація з 1 починається
+    d = dict(zip(f, l)) #дікшенарі, де кожна висота прономерована, нумерація з 1 починається
 
     # наступні рядочки(до X, Y, Z = нам будують нам нашу матирцю)
     # встановлюємо координати
@@ -57,7 +62,8 @@ def vizualize(output:list):
     line_x, line_y, line_z = zip(*line_coords)
     ax.plot(line_x, line_y, line_z, color='green', marker='o', label='Line through specific coordinates')
     # наша пряма(ламана)
-
     plt.show()
 
-vizualize([[0,2],[1,3],[2,4],[3,3],[4,2],[5,1],[6,1]])
+if __name__ == "__main__":
+    path = transform_tuples_to_lists([(0, 0), (0, 1), (1, 1), (2, 1), (2, 2), (2, 3), (3, 3), (4, 3), (4, 4), (5, 4), (5, 5), (5, 6), (6, 6), (7, 6), (7, 7), (8, 7), (8, 8), (8, 9), (9, 9)])
+    vizualize('graph.csv', path)
