@@ -17,15 +17,6 @@ def transform_tuples_to_lists(tuples):
     lists = [list(t) for t in tuples]
     return lists
 
-def read_graph(path: str):
-    graf=[]
-    with open(path, encoding='utf-8') as file:
-        for line in file:
-            line = line.strip().split(',')
-            line = [int(el) for el in line]
-            graf.append(line)
-    return graf
-
 def vizualize(path: str, output: list):
     """
     Приклад вводу
@@ -60,10 +51,12 @@ def vizualize(path: str, output: list):
     line_coords = [(output[i][0], output[i][1], z[i]) for i in range(len(z))]
     # тут у нас ліст координат, крізь які має проходити наша лінія
     line_x, line_y, line_z = zip(*line_coords)
-    ax.plot(line_x, line_y, line_z, color='green', marker='o', label='Line through specific coordinates')
+    ax.plot(line_x, line_y, line_z, color='green', marker='o', \
+label='Line through specific coordinates', linewidth=3.0, alpha=1.0)
     # наша пряма(ламана)
     plt.show()
 
 if __name__ == "__main__":
-    path = transform_tuples_to_lists([(0, 0), (0, 1), (1, 1), (2, 1), (2, 2), (2, 3), (3, 3), (4, 3), (4, 4), (5, 4), (5, 5), (5, 6), (6, 6), (7, 6), (7, 7), (8, 7), (8, 8), (8, 9), (9, 9)])
+    from pathfinding import find_shortest_path, read_graph
+    path = transform_tuples_to_lists(find_shortest_path(read_graph('graph.csv'), 1, (0, 0), (9, 9)))
     vizualize('graph.csv', path)
