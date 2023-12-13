@@ -1,4 +1,5 @@
 from typing import List
+import random
 
 def read_graph(pathname: str) -> List[List[int]]:
 	"""
@@ -8,16 +9,13 @@ def read_graph(pathname: str) -> List[List[int]]:
 	with open(pathname, 'r', encoding = 'utf-8') as file:
 		return [[int(ind.strip()) for ind in line.split(',')] for line in file.readlines()]
 
-def generate_graph(width: int, length: int) -> List[List[int]]:
+def generate_graph(width: int, length: int, max_height: int) -> List[List[int]]:
 	"""
  	generate a graph with given length and size and fill it with random heights
   	width - number of int's in every list
    	length - number of lists inside main list
   	"""
-	if __name__ == "__main__":
-		import random
-
-	graph_list = [[random.randrange(1, 10000) for k in range(width)] for i in range(length)]
+	graph_list = [[random.randrange(1, max_height) for k in range(width)] for i in range(length)]
 	return graph_list
 
 def find_shortest_path(graph: list, step: int, start: tuple, end: tuple) -> List[tuple]:

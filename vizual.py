@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits import mplot3d
 from matplotlib.animation import FuncAnimation
+import random
 
 # Приклад файлу, який зчитується
 # 5,4,3,6,7,5,2
@@ -17,12 +18,11 @@ def transform_tuples_to_lists(tuples):
     lists = [list(t) for t in tuples]
     return lists
 
-def vizualize(path: str, output: list):
+def vizualize(graf: list, output: list):
     """
     Приклад вводу
     >>> [[0,2],[1,3],[2,4],[3,3],[4,2],[5,1],[6,1]]
     """
-    graf = read_graph(path)
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
 
@@ -35,15 +35,15 @@ def vizualize(path: str, output: list):
 
     # наступні рядочки(до X, Y, Z = нам будують нам нашу матирцю)
     # встановлюємо координати
-    x_coord_range = [i for i in range(len(graf[0]))] #х в ренджі довжини графа
-    y_coord_range = [i for i in range(len(graf))] #y в ренджі висоти графа
+    x_coord_range = [i for i in range(len_x)] #х в ренджі довжини графа
+    y_coord_range = [i for i in range(len_y)] #y в ренджі висоти графа
     z_coord = graf
-
     X, Y = np.meshgrid(x_coord_range, y_coord_range) # оскільки x та y "обмежені", тобто не є на всю площу,
     # то ця функція умовно їх перемножує, і створює наче декартові координати
     Z = np.array(z_coord) #оскільки z має на кожну координату "відповідь", то її задаємо цією функцією
-    ax.plot_surface(X, Y, Z, cmap="plasma", alpha=0.7) # нарешті будуємо
-    ax.plot_wireframe(X, Y, Z, color='black', linewidth=0.5)
+    ax.plot_surface(X, Y, Z, cmap="plasma", alpha=0.3) # нарешті будуємо
+    ax.plot_wireframe(X, Y, Z, color='black', linewidth=0.3)
+    
 
     # будуємо пряму
     # output = [[0,2],[1,3],[2,4],[3,3],[4,2],[5,1],[6,1]] #наш гіпотетичний вивід з функції A*
@@ -57,6 +57,7 @@ label='Line through specific coordinates', linewidth=3.0, alpha=1.0)
     plt.show()
 
 if __name__ == "__main__":
-    from pathfinding import find_shortest_path, read_graph
-    path = transform_tuples_to_lists(find_shortest_path(read_graph('graph.csv'), 1, (0, 0), (9, 9)))
-    vizualize('graph.csv', path)
+    from pathfinding import find_shortest_path, read_graph, generate_graph
+    graph = generate_graph(10, 10, 10)
+    path = transform_tuples_to_lists(find_shortest_path(graph, 1, (0, 0), (9, 9)))
+    vizualize(graph, path)
