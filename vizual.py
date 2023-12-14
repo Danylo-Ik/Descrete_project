@@ -44,8 +44,8 @@ def vizualize(graf: list, output: list):
     X, Y = np.meshgrid(x_coord_range, y_coord_range) # оскільки x та y "обмежені", тобто не є на всю площу,
     # то ця функція умовно їх перемножує, і створює наче декартові координати
     Z = np.array(z_coord) #оскільки z має на кожну координату "відповідь", то її задаємо цією функцією
-    ax.plot_surface(X, Y, Z, cmap="plasma", alpha=0.3) # нарешті будуємо
-    ax.plot_wireframe(X, Y, Z, color='black', linewidth=0.3)
+    ax.plot_surface(X, Y, Z, cmap="bone", alpha=0.5) # нарешті будуємо
+    ax.plot_wireframe(X, Y, Z, color='black', linewidth=0.5)
     
     # будуємо пряму
     # output = [[0,2],[1,3],[2,4],[3,3],[4,2],[5,1],[6,1]] наш гіпотетичний вивід з функції A*
@@ -60,6 +60,6 @@ def vizualize(graf: list, output: list):
 
 if __name__ == "__main__":
     from pathfinding import find_shortest_path, read_graph, generate_graph
-    graph = generate_graph(10, 10, 100)
-    path = transform_tuples_to_lists(find_shortest_path(graph, 1, (0, 0), (9, 9)))
+    graph = generate_graph(5, 5, 50)
+    path = transform_tuples_to_lists(find_shortest_path(graph, 1, (0, 0), (4, 4)))
     vizualize(graph, path)

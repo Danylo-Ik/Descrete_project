@@ -34,7 +34,8 @@ def find_shortest_path(graph: list, step: int, start: tuple, end: tuple) -> List
 		"""
 		find the cost of moving from current point to next point
 		"""
-		return (step ** 2 + (graph[current[0]][current[1]] - graph[next_coords[0]][next_coords[1]]) ** 2) ** 0.5
+		return (step ** 2 + (graph[current[0]][current[1]] - \
+		graph[next_coords[0]][next_coords[1]]) ** 2) ** 0.5
 
 	length, width = len(graph), len(graph[0])
 	visited = [[False for k in range(width)] for i in range(length)]
@@ -49,10 +50,10 @@ def find_shortest_path(graph: list, step: int, start: tuple, end: tuple) -> List
 			return curr_coords[4]
 
 		visited[curr_coords[0]][curr_coords[1]] = True
-		neighbors = [(curr_coords[0] + 1, curr_coords[1]), \
-(curr_coords[0] - 1, curr_coords[1]), \
-(curr_coords[0], curr_coords[1] + 1), \
-(curr_coords[0], curr_coords[1] - 1)]
+		neighbors = [(curr_coords[0] + 1, curr_coords[1]),
+					(curr_coords[0] - 1, curr_coords[1]),
+					(curr_coords[0], curr_coords[1] + 1),
+					(curr_coords[0], curr_coords[1] - 1)]
 
 		for i, j in neighbors:
 			if 0 <= i < length and 0 <= j < width and not visited[i][j]:
