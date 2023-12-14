@@ -1,8 +1,8 @@
+import random
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits import mplot3d
 from matplotlib.animation import FuncAnimation
-import random
 
 # Приклад файлу, який зчитується
 # 5,4,3,6,7,5,2
@@ -29,11 +29,14 @@ def vizualize(graf: list, output: list):
     len_x = len(graf[0]) #довжина графа
     len_y = len(graf) #висота графа
     # дані, щоб побудувати граф
-    l = [int(graf[j][i]) for j in range(len_y) for i in range(len_x)] #ліст всіх значень висто справа наліво, зверху вниз
-    f = [i+1 for i in range(len_y*len_x)] #ліст з номерацією, щоб створити дікшенарі з носерами
-    d = dict(zip(f, l)) #дікшенарі, де кожна висота прономерована, нумерація з 1 починається
+    l = [int(graf[j][i]) for j in range(len_y) for i in range(len_x)]
+    #ліст всіх значень висоти справа наліво, зверху вниз
+    f = [i+1 for i in range(len_y*len_x)]
+    #ліст з номерацією, щоб створити дікшенарі з номерами
+    d = dict(zip(f, l))
+    #дікшенарі, де кожна висота пронумерована, нумерація з 1 починається
 
-    # наступні рядочки(до X, Y, Z = нам будують нам нашу матирцю)
+    # наступні рядочки(до X, Y, Z = будують нашу матирцю)
     # встановлюємо координати
     x_coord_range = [i for i in range(len_x)] #х в ренджі довжини графа
     y_coord_range = [i for i in range(len_y)] #y в ренджі висоти графа
@@ -44,20 +47,19 @@ def vizualize(graf: list, output: list):
     ax.plot_surface(X, Y, Z, cmap="plasma", alpha=0.3) # нарешті будуємо
     ax.plot_wireframe(X, Y, Z, color='black', linewidth=0.3)
     
-
     # будуємо пряму
-    # output = [[0,2],[1,3],[2,4],[3,3],[4,2],[5,1],[6,1]] #наш гіпотетичний вивід з функції A*
-    z = [d[(el[1])*len_x + (el[0]+1)] for el in output] #ліст значень вершин для нашого аутпуту(математика тупа)
+    # output = [[0,2],[1,3],[2,4],[3,3],[4,2],[5,1],[6,1]] наш гіпотетичний вивід з функції A*
+    z = [d[(el[1])*len_x + (el[0]+1)] for el in output] #ліст значень вершин для нашого аутпуту
     line_coords = [(output[i][0], output[i][1], z[i]) for i in range(len(z))]
     # тут у нас ліст координат, крізь які має проходити наша лінія
     line_x, line_y, line_z = zip(*line_coords)
     ax.plot(line_x, line_y, line_z, color='green', marker='o', \
-label='Line through specific coordinates', linewidth=3.0, alpha=1.0)
+    label='Line through specific coordinates', linewidth=3.0, alpha=1.0)
     # наша пряма(ламана)
     plt.show()
 
 if __name__ == "__main__":
     from pathfinding import find_shortest_path, read_graph, generate_graph
-    graph = generate_graph(10, 10, 10)
+    graph = generate_graph(10, 10, 100)
     path = transform_tuples_to_lists(find_shortest_path(graph, 1, (0, 0), (9, 9)))
     vizualize(graph, path)
