@@ -60,6 +60,6 @@ def vizualize(graf: list, output: list):
 
 if __name__ == "__main__":
     from pathfinding import find_shortest_path, read_graph, generate_graph
-    graph = generate_graph(5, 5, 50)
+    graph = generate_graph(5, 5, 10)
     path = transform_tuples_to_lists(find_shortest_path(graph, 1, (0, 0), (4, 4)))
     vizualize(graph, path)
